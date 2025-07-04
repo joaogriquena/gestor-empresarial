@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Movimentações{% endblock %}
+
+{% block conteudo %}
+<h2>Registrar Saída de Ferramenta</h2>
+
+<form method="POST">
+    <label>Ferramenta:</label>
+    <select name="ferramenta_id" required>
+        <option value="">Selecione</option>
+        {% for f in ferramentas %}
+            <option value="{{ f.id }}">{{ f.nome }}</option>
+        {% endfor %}
+    </select>
+    <label>Quantidade:</label>
+    <input type="number" name="quantidade" required>
+
+    <label>Matrícula do Funcionário:</label>
+    <input type="text" name="matricula" required>
+
+    <button type="submit">Registrar Saída</button>
+</form>
+
+<hr>
+
+<h3>Histórico de Movimentações</h3>
+
+<form method="GET">
+    <label>Filtro por tipo:</label>
+    <select name="filtro_tipo">
+        <option value="">Todos</option>
+        <option value="saida" {% if filtro_tipo == 'saida' %}selected{% endif %}>Saída</option>
+        <option value="devolucao" {% if filtro_tipo == 'devolucao' %}selected{% endif %}>Devolução</option>
+    </select>
+    <button type="submit">Filtrar</button>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>Data</th>
+            <th>Funcionário</th>
+            <th>Ferramenta</th>
+            <th>Tipo</th>
+            <th>Quantidade</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for m in movimentacoes %}
+        <tr>
+            <td>{{ m.data.strftime('%d/%m/%Y %H:%M') }}</td>
+            <td>{{ m.funcionario.nome }}</td>
+            <td>{{ m.ferramenta.nome }}</td>
+            <td>{{ m.tipo }}</td>
+            <td>{{ m.quantidade }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
