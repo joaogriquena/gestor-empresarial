@@ -1,0 +1,85 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+.env/
+.venv/
+
+# Environment variables
+.env
+*.env
+
+# Flask-related
+instance/
+*.db
+*.sqlite3
+*.log
+*.pid
+
+# MacOS
+.DS_Store
+
+# VSCode
+.vscode/
+.code-workspace
+
+# PyCharm
+.idea/
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+
+# Unit test / pytest
+.cache
+.pytest_cache/
+nosetests.xml
+coverage.xml
+*.cover
+test-results/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Distribution / packaging
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Wheels
+*.whl
+
+# MyPy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Logs and temp files
+*.log
+*.bak
+*.swp
+*.tmp
+*.orig
+
+# Node modules (caso use JS externo com npm/yarn)
+node_modules/
+package-lock.json
+yarn.lock
+
+config/*.secret
+config/settings_local.py
