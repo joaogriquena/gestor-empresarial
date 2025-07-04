@@ -1,25 +1,27 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
-</head>
-<body>
-    <main>
-        <h1>Login</h1>
-        <form method="POST">
-            <input type="text" name="usuario" placeholder="Usuário" required>
-            <input type="password" name="senha" placeholder="Senha" required>
-            <button type="submit">Entrar</button>
-        </form>
-        {% with messages = get_flashed_messages() %}
-          {% if messages %}
-            <div class="mensagem">
-              {{ messages[0] }}
+{% extends 'base.html' %}
+
+{% block titulo %}Login{% endblock %}
+
+{% block estilos %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+{% endblock %}
+
+{% block conteudo %}
+<div class="login-container">
+    <h2>Login</h2>
+
+    <form method="POST">
+        <input type="text" name="usuario" placeholder="Usuário" required>
+        <input type="password" name="senha" placeholder="Senha" required>
+        <button type="submit">Entrar</button>
+    </form>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="mensagem-erro">
+                {{ messages[0] }}
             </div>
-          {% endif %}
-        {% endwith %}
-    </main>
-</body>
-</html>
+        {% endif %}
+    {% endwith %}
+</div>
+{% endblock %}

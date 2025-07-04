@@ -2,41 +2,55 @@
 
 {% block titulo %}Ferramentas{% endblock %}
 
+{% block estilos %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='almoxarifado/css/navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='almoxarifado/css/ferramentas.css') }}">
+{% endblock %}
+
 {% block conteudo %}
-<h2>Cadastro de Ferramentas</h2>
+    {% include 'almoxarifado/_navbar.html' %}
 
-<form method="POST">
-    <input type="text" name="nome" placeholder="Nome da Ferramenta" required>
-    <input type="text" name="descricao" placeholder="Descrição">
-    <input type="number" name="quantidade" placeholder="Quantidade" required>
-    <button type="submit">Cadastrar</button>
-</form>
+    <div class="container-ferramentas">
+        <h1>Gerenciamento de Ferramentas 🧰</h1>
 
-<hr>
+        <div class="card-form">
+            <h2>Cadastrar Nova Ferramenta</h2>
+            <form method="POST" class="formulario">
+                <input type="text" name="nome" placeholder="Nome da Ferramenta" required>
+                <input type="text" name="descricao" placeholder="Descrição">
+                <input type="number" name="quantidade" placeholder="Quantidade" required>
+                <button type="submit">Cadastrar</button>
+            </form>
+        </div>
 
-<h3>Buscar Ferramentas</h3>
-<form method="GET">
-    <input type="text" name="filtro" placeholder="Buscar por nome" value="{{ filtro or '' }}">
-    <button type="submit">Buscar</button>
-</form>
+        <div class="card-busca">
+            <h3>🔍 Buscar Ferramentas</h3>
+            <form method="GET" class="form-busca">
+                <input type="text" name="filtro" placeholder="Buscar por nome..." value="{{ filtro or '' }}">
+                <button type="submit">Buscar</button>
+            </form>
+        </div>
 
-<h3>Ferramentas Cadastradas</h3>
-<table>
-    <thead>
-        <tr>
-            <th>Nome</th>
-            <th>Descrição</th>
-            <th>Quantidade</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for f in ferramentas %}
-        <tr>
-            <td>{{ f.nome }}</td>
-            <td>{{ f.descricao or '-' }}</td>
-            <td>{{ f.quantidade_total }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+        <div class="card-tabela">
+            <h3>📋 Ferramentas Cadastradas</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Descrição</th>
+                        <th>Quantidade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for f in ferramentas %}
+                    <tr>
+                        <td>{{ f.nome }}</td>
+                        <td>{{ f.descricao or '-' }}</td>
+                        <td>{{ f.quantidade_total }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}

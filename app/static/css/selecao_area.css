@@ -1,0 +1,66 @@
+.selecao-container {
+    max-width: 1200px;
+    margin: 60px auto;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.titulo-area {
+    font-size: 2rem;
+    margin-bottom: 40px;
+    color: var(--texto);
+    font-weight: 600;
+}
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 30px;
+    justify-content: center;
+}
+
+.area-card {
+    background-color: var(--header);
+    border: 1px solid #d1d1d1;
+    border-radius: 12px;
+    padding: 30px 20px;
+    text-align: center;
+    text-decoration: none;
+    color: var(--texto);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 160px;
+    justify-content: center;
+}
+
+.area-card:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    border-color: #1976d2;
+    transform: translateY(-3px);
+    background-color: #f9fbfd;
+}
+
+.area-card .icone {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+.area-card .label {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+/* Escuro */
+body.modo-escuro .area-card {
+    background-color: #2e2e2e;
+    border-color: #444;
+    color: #eee;
+}
+
+body.modo-escuro .area-card:hover {
+    background-color: #3a3a3a;
+    border-color: #2196f3;
+}

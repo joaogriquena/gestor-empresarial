@@ -2,14 +2,49 @@
 
 {% block titulo %}Dashboard - Almoxarifado{% endblock %}
 
-{% block conteudo %}
-<main>
-    <h1>Dashboard do Almoxarifado</h1>
-    <p>Bem-vindo! Aqui você poderá visualizar os gráficos e indicadores.</p>
+{% block estilos %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='almoxarifado/css/navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='almoxarifado/css/dashboard.css') }}">
+{% endblock %}
 
-    <div class="graficos-container">
-        <!-- Em breve: gráficos com dados reais -->
-        <p>[Gráficos serão adicionados aqui]</p>
+{% block conteudo %}
+    {% include 'almoxarifado/_navbar.html' %}
+    
+    <div class="dashboard-container">
+        <h1 class="titulo-dashboard">Painel do Almoxarifado</h1>
+
+        <div class="cards-dashboard">
+            <a href="{{ url_for('ferramentas.ferramentas') }}" class="card-item">
+                <div class="icone">🧰</div>
+                <div class="info">
+                    <span class="label">Ferramentas</span>
+                    <span class="descricao">Gerenciar e cadastrar</span>
+                </div>
+            </a>
+
+            <a href="{{ url_for('funcionarios.funcionarios') }}" class="card-item">
+                <div class="icone">👷</div>
+                <div class="info">
+                    <span class="label">Funcionários</span>
+                    <span class="descricao">Visualizar e adicionar</span>
+                </div>
+            </a>
+
+            <a href="{{ url_for('movimentacoes.movimentacoes') }}" class="card-item">
+                <div class="icone">📤</div>
+                <div class="info">
+                    <span class="label">Movimentações</span>
+                    <span class="descricao">Saídas e retornos</span>
+                </div>
+            </a>
+
+            <a href="{{ url_for('estoque.estoque') }}" class="card-item">
+                <div class="icone">📦</div>
+                <div class="info">
+                    <span class="label">Estoque</span>
+                    <span class="descricao">Visualizar tudo</span>
+                </div>
+            </a>
+        </div>
     </div>
-</main>
 {% endblock %}

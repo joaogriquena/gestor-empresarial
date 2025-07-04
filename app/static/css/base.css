@@ -48,6 +48,23 @@ header h1 {
     color: inherit;
 }
 
+.flash {
+    padding: 10px 15px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+}
+
+.flash.sucesso {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.flash.erro {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+
 main {
     flex: 1;
     padding: 30px 20px;

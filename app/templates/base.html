@@ -18,6 +18,17 @@
         <button id="btn-tema" title="Alterar tema">🌓</button>
     </header>
 
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="mensagens">
+            {% for categoria, msg in messages %}
+                <div class="flash {{ categoria }}">{{ msg }}</div>
+            {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+
     <main>
         {% block conteudo %}{% endblock %}
     </main>
@@ -27,18 +38,8 @@
     </footer>
 
     <!-- Script do botão de tema -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const btnTema = document.getElementById('btn-tema');
-            const corpo = document.body;
-
-            btnTema.addEventListener('click', () => {
-                corpo.classList.toggle('modo-escuro');
-                corpo.classList.toggle('modo-claro');
-            });
-        });
-    </script>
-
+    <script src="{{ url_for('static', filename='js/tema.js') }}"></script>
+    
     <!-- Bloco para scripts extras -->
     {% block scripts %}{% endblock %}
 </body>

@@ -1,19 +1,43 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <title>Seleção de Área</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/areas.css') }}">
-</head>
-<body>
-    <main>
-        <h1>Escolha sua área</h1>
-        <div class="areas-container">
-            <a href="{{ url_for('dashboard_almoxarifado.index') }}">Almoxarifado</a>
-            <a href="#" onclick="alert('Em desenvolvimento')">Engenharia</a>
-            <a href="#" onclick="alert('Em desenvolvimento')">Recursos Humanos</a>
-            <a href="#" onclick="alert('Em desenvolvimento')">Segurança do Trabalho</a>
-        </div>
-    </main>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block titulo %}Escolher Área{% endblock %}
+
+{% block estilos %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/selecao_area.css') }}">
+{% endblock %}
+
+{% block conteudo %}
+    <div class="selecao-container">
+        <h2 class="titulo-area">Selecione sua Área de Acesso</h2>
+
+    <div class="cards-grid">
+
+        <a href="{{ url_for('dashboard_almoxarifado.index') }}" class="area-card">
+            <div class="icone">📦</div>
+            <div class="label">Almoxarifado</div>
+        </a>
+
+        <a href="#" class="area-card" onclick="alert('Em breve')">
+            <div class="icone">🛠️</div>
+            <div class="label">Engenharia</div>
+        </a>
+
+        <a href="#" class="area-card" onclick="alert('Em breve')">
+            <div class="icone">👥</div>
+            <div class="label">Recursos Humanos</div>
+        </a>
+
+        <a href="#" class="area-card" onclick="alert('Em breve')">
+            <div class="icone">🛡️</div>
+            <div class="label">Segurança do Trabalho</div>
+        </a>
+
+        <a href="#" class="area-card" onclick="alert('Em breve')">
+            <div class="icone">🛒</div>
+            <div class="label">Compras</div>
+        </a>
+
+    </div>
+
+</div>
+{% endblock %}
