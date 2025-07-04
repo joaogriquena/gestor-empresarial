@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Seleção de Área</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/areas.css') }}">
+</head>
+<body>
+    <main>
+        <h1>Escolha sua área</h1>
+        <div class="areas-container">
+            <a href="{{ url_for('dashboard_almoxarifado.index') }}">Almoxarifado</a>
+            <a href="#" onclick="alert('Em desenvolvimento')">Engenharia</a>
+            <a href="#" onclick="alert('Em desenvolvimento')">Recursos Humanos</a>
+            <a href="#" onclick="alert('Em desenvolvimento')">Segurança do Trabalho</a>
+        </div>
+    </main>
+</body>
+</html>
