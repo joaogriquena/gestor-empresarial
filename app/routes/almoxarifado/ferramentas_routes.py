@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_required
 from app.extensoes import db
-from app.models.almoxarifado.ferramentas import Ferramenta
+from app.models.almoxarifado.ferramenta import Ferramenta
 from app.utils.auth import verificar_permissao
 
 # Define o Blueprint com prefixo para a área do almoxarifado
