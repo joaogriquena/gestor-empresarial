@@ -3,14 +3,13 @@ from app.extensoes import db
 from app.models.usuario import Usuario
 from werkzeug.security import generate_password_hash
 
-# Criar app e contexto
 app = criar_app()
 
-with app.app_context():
+with app.app_context():  # ✅ Contexto do app necessário
+    print("⏳ Criando banco de dados...")
     db.drop_all()
     db.create_all()
 
-    # Usuário admin
     admin = Usuario(
         usuario='admin',
         senha=generate_password_hash('admin123'),
@@ -18,16 +17,15 @@ with app.app_context():
         tipo='admin'
     )
 
-    # Usuário almoxarife
     almoxarife = Usuario(
         usuario='joao',
         senha=generate_password_hash('123456'),
-        nome='João Almoxarife',
-        tipo='almoxarife'
+        nome='João Almoxarifado',
+        tipo='almoxarifado'
     )
 
-    db.session.add(admin)
-    db.session.add(almoxarife)
+    db.session.add_all([admin, almoxarife])
     db.session.commit()
 
-    print("✅ Banco de dados criado com sucesso e usuários inseridos.")
+    print("✅ Banco de dados criado com sucesso!")
+    print("✅ Usuários padrão criados: admin e almoxarife")

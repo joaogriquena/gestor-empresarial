@@ -1,26 +1,27 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager
+from app.extensoes import db, login_manager
 from jinja2 import ChoiceLoader, FileSystemLoader
 import os
-
-db = SQLAlchemy()
-login_manager = LoginManager()
 
 def criar_app():
     app = Flask(__name__)
     app.secret_key = 'sua_chave_secreta'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///sistema.db'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     db.init_app(app)
     login_manager.init_app(app)
-
-    from app.routes.login_routes import login_bp
-    app.register_blueprint(login_bp)
+    login_manager.login_view = 'login.login'
 
     app.jinja_loader = ChoiceLoader([
         FileSystemLoader(os.path.join(app.root_path, 'templates'))
     ])
+
+    from app.routes.login_routes import login_bp
+    from app.routes.almoxarifado.dashboard_routes import dashboard_almoxarifado
+    
+    app.register_blueprint(login_bp)
+    app.register_blueprint(dashboard_almoxarifado)
 
     from app.models.usuario import Usuario
     @login_manager.user_loader
