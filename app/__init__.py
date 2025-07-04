@@ -19,9 +19,11 @@ def criar_app():
 
     from app.routes.login_routes import login_bp
     from app.routes.almoxarifado.dashboard_routes import dashboard_almoxarifado
+    from app.routes.almoxarifado.ferramentas_routes import ferramentas_bp
     
     app.register_blueprint(login_bp)
     app.register_blueprint(dashboard_almoxarifado)
+    app.register_blueprint(ferramentas_bp)
 
     from app.models.usuario import Usuario
     @login_manager.user_loader

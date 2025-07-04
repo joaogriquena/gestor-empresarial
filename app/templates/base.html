@@ -3,11 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block titulo %}Sistema Interno{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Estilo base -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+
+    <!-- Bloco para CSS extra das páginas -->
+    {% block estilos %}{% endblock %}
 </head>
-<body>
+<body class="modo-claro">
+
     <header>
-        <h2>Intranet Empresarial</h2>
+        <h1>ConterSolo - Intranet</h1>
+        <button id="btn-tema" title="Alterar tema">🌓</button>
     </header>
 
     <main>
@@ -15,7 +23,23 @@
     </main>
 
     <footer>
-        <small>© 2025 - Sistema Interno</small>
+        <p>© 2025 ConterSolo - Todos os direitos reservados</p>
     </footer>
+
+    <!-- Script do botão de tema -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btnTema = document.getElementById('btn-tema');
+            const corpo = document.body;
+
+            btnTema.addEventListener('click', () => {
+                corpo.classList.toggle('modo-escuro');
+                corpo.classList.toggle('modo-claro');
+            });
+        });
+    </script>
+
+    <!-- Bloco para scripts extras -->
+    {% block scripts %}{% endblock %}
 </body>
 </html>

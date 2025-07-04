@@ -1,0 +1,61 @@
+/* Tema claro */
+body.modo-claro {
+    --bg: #f4f4f4;
+    --texto: #333;
+    --header: #ffffff;
+    --footer: #e1e1e1;
+}
+
+/* Tema escuro */
+body.modo-escuro {
+    --bg: #1f1f1f;
+    --texto: #f1f1f1;
+    --header: #2c2c2c;
+    --footer: #333333;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: var(--bg);
+    color: var(--texto);
+    transition: background-color 0.3s, color 0.3s;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background-color: var(--header);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+#btn-tema {
+    font-size: 1.2rem;
+    padding: 5px 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: inherit;
+}
+
+main {
+    flex: 1;
+    padding: 30px 20px;
+}
+
+footer {
+    background-color: var(--footer);
+    text-align: center;
+    padding: 10px 0;
+    font-size: 0.9rem;
+}
