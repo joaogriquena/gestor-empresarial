@@ -1,10 +1,11 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_required
 from app.extensoes import db
-from app.models.almoxarifado.ferramenta import Ferramenta
 from app.models.almoxarifado.funcionario import Funcionario
+from app.models.almoxarifado.ferramenta import Ferramenta
 from app.models.almoxarifado.movimentacao import Movimentacao
 from app.utils.auth import verificar_permissao
+from datetime import datetime
 
 movimentacoes_bp = Blueprint('movimentacoes', __name__, url_prefix='/almoxarifado')
 
@@ -13,40 +14,48 @@ movimentacoes_bp = Blueprint('movimentacoes', __name__, url_prefix='/almoxarifad
 @verificar_permissao('almoxarifado')
 def movimentacoes():
     if request.method == 'POST':
+        funcionario_id = request.form.get('funcionario_id')
         ferramenta_id = request.form.get('ferramenta_id')
-        matricula = request.form.get('matricula')
         quantidade = request.form.get('quantidade')
 
-        funcionario = Funcionario.query.filter_by(matricula=matricula).first()
-
-        if not funcionario:
-            flash('Matrícula inválida!', 'erro')
-        elif not ferramenta_id or not quantidade:
-            flash('Campos obrigatórios faltando.', 'erro')
+        if funcionario_id and ferramenta_id and quantidade:
+            try:
+                nova = Movimentacao(
+                    funcionario_id=int(funcionario_id),
+                    ferramenta_id=int(ferramenta_id),
+                    quantidade=int(quantidade),
+                    tipo='saida',
+                    data_hora=datetime.now()
+                )
+                db.session.add(nova)
+                db.session.commit()
+                flash('✅ Movimentação registrada com sucesso!', 'sucesso')
+                return redirect(url_for('movimentacoes.movimentacoes'))
+            except Exception as e:
+                db.session.rollback()
+                flash(f'Erro ao registrar movimentação: {str(e)}', 'erro')
         else:
-            nova = Movimentacao(
-                ferramenta_id=ferramenta_id,
-                funcionario_id=funcionario.id,
-                tipo='saida',
-                quantidade=int(quantidade)
+            flash('⚠️ Todos os campos são obrigatórios.', 'erro')
+
+    filtro = request.args.get('filtro')
+    query = db.session.query(Movimentacao).join(Funcionario).join(Ferramenta)
+
+    if filtro:
+        query = query.filter(
+            db.or_(
+                Funcionario.nome.ilike(f'%{filtro}%'),
+                Ferramenta.nome.ilike(f'%{filtro}%')
             )
-            db.session.add(nova)
-            db.session.commit()
-            flash('✅ Saída registrada com sucesso!', 'sucesso')
-            return redirect(url_for('movimentacoes.movimentacoes'))
+        )
 
-    ferramentas = Ferramenta.query.all()
-    filtro_tipo = request.args.get('filtro_tipo')
-    movimentacoes = Movimentacao.query
-
-    if filtro_tipo:
-        movimentacoes = movimentacoes.filter_by(tipo=filtro_tipo)
-
-    movimentacoes = movimentacoes.order_by(Movimentacao.data.desc()).all()
+    movimentacoes = query.order_by(Movimentacao.data_hora.desc()).all()
+    funcionarios = Funcionario.query.order_by(Funcionario.nome).all()
+    ferramentas = Ferramenta.query.order_by(Ferramenta.nome).all()
 
     return render_template(
         'almoxarifado/movimentacoes.html',
         movimentacoes=movimentacoes,
+        funcionarios=funcionarios,
         ferramentas=ferramentas,
-        filtro_tipo=filtro_tipo
+        filtro=filtro
     )

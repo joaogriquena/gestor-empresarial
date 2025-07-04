@@ -17,14 +17,18 @@ def funcionarios():
 
         if nome and matricula:
             try:
-                novo = Funcionario(nome=nome, cargo=cargo, matricula=matricula)
+                novo = Funcionario(
+                    nome=nome.strip(),
+                    cargo=cargo.strip() if cargo else None,
+                    matricula=matricula.strip()
+                )
                 db.session.add(novo)
                 db.session.commit()
                 flash('✅ Funcionário cadastrado com sucesso!', 'sucesso')
                 return redirect(url_for('funcionarios.funcionarios'))
             except Exception as e:
                 db.session.rollback()
-                flash(f'Erro ao cadastrar: {str(e)}', 'erro')
+                flash(f'Erro ao cadastrar funcionário: {str(e)}', 'erro')
         else:
             flash('⚠️ Nome e matrícula são obrigatórios.', 'erro')
 

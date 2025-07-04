@@ -4,62 +4,70 @@
 
 {% block estilos %}
     <link rel="stylesheet" href="{{ url_for('static', filename='almoxarifado/css/navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='almoxarifado/css/movimentacoes.css') }}">
 {% endblock %}
 
 {% block conteudo %}
-<h2>Registrar Saída de Ferramenta</h2>
+    {% include 'almoxarifado/_navbar.html' %}
 
-<form method="POST">
-    <label>Ferramenta:</label>
-    <select name="ferramenta_id" required>
-        <option value="">Selecione</option>
-        {% for f in ferramentas %}
-            <option value="{{ f.id }}">{{ f.nome }}</option>
-        {% endfor %}
-    </select>
-    <label>Quantidade:</label>
-    <input type="number" name="quantidade" required>
+    <div class="container-movimentacoes">
+        <h2>Movimentações de Ferramentas</h2>
 
-    <label>Matrícula do Funcionário:</label>
-    <input type="text" name="matricula" required>
+        <div class="form-section">
+            <form method="POST" class="form-movimentacao">
+                <div class="campo">
+                    <label>Funcionário:</label>
+                    <select name="funcionario_id" required>
+                        {% for f in funcionarios %}
+                            <option value="{{ f.id }}">{{ f.nome }} - {{ f.cargo }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="campo">
+                    <label>Ferramenta:</label>
+                    <select name="ferramenta_id" required>
+                        {% for ferr in ferramentas %}
+                            <option value="{{ ferr.id }}">{{ ferr.nome }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="campo">
+                    <label>Quantidade:</label>
+                    <input type="number" name="quantidade" min="1" required>
+                </div>
+                <button type="submit" class="btn-registrar">Registrar Saída</button>
+            </form>
+        </div>
 
-    <button type="submit">Registrar Saída</button>
-</form>
+        <div class="filtro-section">
+            <form method="GET" class="form-filtro">
+                <input type="text" name="filtro" placeholder="Filtrar por funcionário ou ferramenta" value="{{ filtro or '' }}">
+                <button type="submit">🔍 Buscar</button>
+            </form>
+        </div>
 
-<hr>
-
-<h3>Histórico de Movimentações</h3>
-
-<form method="GET">
-    <label>Filtro por tipo:</label>
-    <select name="filtro_tipo">
-        <option value="">Todos</option>
-        <option value="saida" {% if filtro_tipo == 'saida' %}selected{% endif %}>Saída</option>
-        <option value="devolucao" {% if filtro_tipo == 'devolucao' %}selected{% endif %}>Devolução</option>
-    </select>
-    <button type="submit">Filtrar</button>
-</form>
-
-<table>
-    <thead>
-        <tr>
-            <th>Data</th>
-            <th>Funcionário</th>
-            <th>Ferramenta</th>
-            <th>Tipo</th>
-            <th>Quantidade</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for m in movimentacoes %}
-        <tr>
-            <td>{{ m.data.strftime('%d/%m/%Y %H:%M') }}</td>
-            <td>{{ m.funcionario.nome }}</td>
-            <td>{{ m.ferramenta.nome }}</td>
-            <td>{{ m.tipo }}</td>
-            <td>{{ m.quantidade }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+        <h3>Histórico de Movimentações</h3>
+        <table class="tabela-movimentacoes">
+            <thead>
+                <tr>
+                    <th>Funcionário</th>
+                    <th>Ferramenta</th>
+                    <th>Quantidade</th>
+                    <th>Tipo</th>
+                    <th>Data</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for m in movimentacoes %}
+                <tr>
+                    <td>{{ m.funcionario.nome }}</td>
+                    <td>{{ m.ferramenta.nome }}</td>
+                    <td>{{ m.quantidade }}</td>
+                    <td>{{ m.tipo }}</td>
+                    <td>{{ m.data_hora.strftime('%d/%m/%Y %H:%M') }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}

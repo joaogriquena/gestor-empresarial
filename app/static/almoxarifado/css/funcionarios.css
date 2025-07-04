@@ -1,46 +1,64 @@
 .container-funcionarios {
-    max-width: 1000px;
-    margin: 20px auto;
+    max-width: 1100px;
+    margin: 30px auto;
     padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .card-form {
     background: var(--color-card);
-    padding: 20px;
-    border-radius: 12px;
+    padding: 30px;
+    border-radius: 16px;
     box-shadow: var(--shadow);
-    margin-bottom: 30px;
+    margin-bottom: 35px;
+    border: 1px solid var(--light-gray);
 }
 
 .card-form .grupo {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .card-form label {
-    font-weight: bold;
+    font-weight: 600;
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
+    color: var(--text-color);
 }
 
 .card-form input {
     width: 100%;
-    padding: 10px;
+    padding: 14px 16px;
     border: 1px solid #ccc;
-    border-radius: 8px;
+    border-radius: 10px;
+    font-size: 15px;
+    background-color: #fff;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.card-form input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(102, 187, 68, 0.2);
 }
 
 .btn-cadastrar {
-    padding: 10px 20px;
-    background-color: var(--primary-color);
-    color: white;
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+    color: black;
+    font-size: 16px;
+    font-weight: bold;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
-    transition: 0.3s;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .btn-cadastrar:hover {
-    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
 .busca-section {
@@ -50,14 +68,31 @@
 .busca-form {
     display: flex;
     gap: 10px;
+    flex-wrap: wrap;
     align-items: center;
 }
 
 .busca-form input {
     flex: 1;
-    padding: 10px;
+    padding: 12px;
     border-radius: 8px;
     border: 1px solid #ccc;
+    font-size: 15px;
+}
+
+.busca-form button {
+    padding: 12px 20px;
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.busca-form button:hover {
+    background-color: var(--secondary-color);
 }
 
 .tabela-funcionarios {
@@ -71,16 +106,18 @@
 
 .tabela-funcionarios th,
 .tabela-funcionarios td {
-    padding: 12px 15px;
-    border-bottom: 1px solid #ddd;
+    padding: 14px 18px;
+    border-bottom: 1px solid #e0e0e0;
     text-align: left;
+    font-size: 15px;
 }
 
 .tabela-funcionarios th {
     background-color: var(--primary-color);
-    color: white;
+    color: #fff;
+    text-transform: uppercase;
 }
 
 .tabela-funcionarios tr:hover {
-    background-color: #f5f5f5;
+    background-color: #f9f9f9;
 }

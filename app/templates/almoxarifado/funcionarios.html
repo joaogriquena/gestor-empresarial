@@ -16,16 +16,16 @@
         <div class="card-form">
             <form method="POST">
                 <div class="grupo">
-                    <label>Nome:</label>
-                    <input type="text" name="nome" placeholder="Ex: João Silva" required>
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" name="nome" placeholder="Ex: João Silva" required>
                 </div>
                 <div class="grupo">
-                    <label>Matrícula:</label>
-                    <input type="text" name="matricula" placeholder="Ex: 12345" required>
+                    <label for="matricula">Matrícula:</label>
+                    <input type="text" id="matricula" name="matricula" placeholder="Ex: 12345" required>
                 </div>
                 <div class="grupo">
-                    <label>Cargo:</label>
-                    <input type="text" name="cargo" placeholder="Ex: Técnico de Segurança" required>
+                    <label for="cargo">Cargo:</label>
+                    <input type="text" id="cargo" name="cargo" placeholder="Ex: Técnico de Segurança" required>
                 </div>
                 <button type="submit" class="btn-cadastrar">Cadastrar</button>
             </form>
@@ -56,7 +56,7 @@
                     <tr>
                         <td>{{ f.nome }}</td>
                         <td>{{ f.matricula }}</td>
-                        <td>{{ f.cargo }}</td>
+                        <td>{{ f.cargo or '-' }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
