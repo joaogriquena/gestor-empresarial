@@ -22,12 +22,14 @@ def criar_app():
     from app.routes.almoxarifado.ferramentas_routes import ferramentas_bp
     from app.routes.almoxarifado.funcionarios_routes import funcionarios_bp
     from app.routes.almoxarifado.movimentacoes_routes import movimentacoes_bp
+    from app.routes.almoxarifado.estoque_routes import estoque_bp
     
     app.register_blueprint(login_bp)
     app.register_blueprint(dashboard_almoxarifado)
     app.register_blueprint(ferramentas_bp)
     app.register_blueprint(funcionarios_bp)
     app.register_blueprint(movimentacoes_bp)
+    app.register_blueprint(estoque_bp)
     
 
     from app.models.usuario import Usuario

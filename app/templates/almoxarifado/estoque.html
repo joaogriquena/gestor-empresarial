@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Estoque de Ferramentas{% endblock %}
+
+{% block conteudo %}
+<h2>Estoque de Ferramentas</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Total Cadastrado</th>
+            <th>Retiradas</th>
+            <th>Disponível</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in dados %}
+        <tr>
+            <td>{{ item.nome }}</td>
+            <td>{{ item.descricao }}</td>
+            <td>{{ item.total }}</td>
+            <td>{{ item.retiradas }}</td>
+            <td>{{ item.disponivel }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
