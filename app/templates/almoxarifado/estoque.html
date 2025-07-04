@@ -1,34 +1,58 @@
 {% extends 'base.html' %}
 
-{% block titulo %}Estoque de Ferramentas{% endblock %}
+{% block titulo %}Estoque{% endblock %}
 
 {% block estilos %}
     <link rel="stylesheet" href="{{ url_for('static', filename='almoxarifado/css/navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='almoxarifado/css/estoque.css') }}">
 {% endblock %}
 
 {% block conteudo %}
-<h2>Estoque de Ferramentas</h2>
+    {% include 'almoxarifado/_navbar.html' %}
 
-<table>
-    <thead>
-        <tr>
-            <th>Nome</th>
-            <th>Descrição</th>
-            <th>Total Cadastrado</th>
-            <th>Retiradas</th>
-            <th>Disponível</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for item in dados %}
-        <tr>
-            <td>{{ item.nome }}</td>
-            <td>{{ item.descricao }}</td>
-            <td>{{ item.total }}</td>
-            <td>{{ item.retiradas }}</td>
-            <td>{{ item.disponivel }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+    <div class="container-estoque">
+        <h2>Estoque de Ferramentas</h2>
+
+        <div class="botoes-toggle">
+            <button id="btn-tabela" class="active">📋 Tabela</button>
+            <button id="btn-cards">📦 Cards</button>
+        </div>
+
+        <!-- TABELA -->
+        <div class="tabela-container">
+            <table class="tabela-estoque">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Descrição</th>
+                        <th>Quantidade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for f in ferramentas %}
+                    <tr>
+                        <td>{{ f.nome }}</td>
+                        <td>{{ f.descricao or '-' }}</td>
+                        <td>{{ f.quantidade_total }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- CARDS -->
+        <div id="cards-container" class="cards-container hidden">
+            {% for f in ferramentas %}
+            <div class="card-estoque">
+                <div class="titulo">{{ f.nome }}</div>
+                <div class="info">Descrição: {{ f.descricao or '-' }}</div>
+                <div class="info">Quantidade: {{ f.quantidade_total }}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='almoxarifado/js/estoque.js') }}"></script>
 {% endblock %}
