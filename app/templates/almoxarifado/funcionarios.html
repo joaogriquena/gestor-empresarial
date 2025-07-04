@@ -4,43 +4,63 @@
 
 {% block estilos %}
     <link rel="stylesheet" href="{{ url_for('static', filename='almoxarifado/css/navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='almoxarifado/css/funcionarios.css') }}">
 {% endblock %}
 
 {% block conteudo %}
-<h2>Cadastro de Funcionários</h2>
+    {% include 'almoxarifado/_navbar.html' %}
 
-<form method="POST">
-    <input type="text" name="nome" placeholder="Nome" required>
-    <input type="text" name="cargo" placeholder="Cargo">
-    <input type="text" name="matricula" placeholder="Matrícula" required>
-    <button type="submit">Cadastrar</button>
-</form>
+    <div class="container-funcionarios">
+        <h2>Cadastro de Funcionários</h2>
 
-<hr>
+        <div class="card-form">
+            <form method="POST">
+                <div class="grupo">
+                    <label>Nome:</label>
+                    <input type="text" name="nome" placeholder="Ex: João Silva" required>
+                </div>
+                <div class="grupo">
+                    <label>Matrícula:</label>
+                    <input type="text" name="matricula" placeholder="Ex: 12345" required>
+                </div>
+                <div class="grupo">
+                    <label>Cargo:</label>
+                    <input type="text" name="cargo" placeholder="Ex: Técnico de Segurança" required>
+                </div>
+                <button type="submit" class="btn-cadastrar">Cadastrar</button>
+            </form>
+        </div>
 
-<h3>Buscar Funcionários</h3>
-<form method="GET">
-    <input type="text" name="filtro" placeholder="Buscar por nome" value="{{ filtro or '' }}">
-    <button type="submit">Buscar</button>
-</form>
+        <hr>
 
-<h3>Funcionários Cadastrados</h3>
-<table>
-    <thead>
-        <tr>
-            <th>Nome</th>
-            <th>Cargo</th>
-            <th>Matrícula</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for f in funcionarios %}
-        <tr>
-            <td>{{ f.nome }}</td>
-            <td>{{ f.cargo or '-' }}</td>
-            <td>{{ f.matricula }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+        <div class="busca-section">
+            <h3>Buscar Funcionários</h3>
+            <form method="GET" class="busca-form">
+                <input type="text" name="filtro" placeholder="Buscar por nome, matrícula ou cargo" value="{{ filtro or '' }}">
+                <button type="submit">🔍 Buscar</button>
+            </form>
+        </div>
+
+        <div class="tabela-section">
+            <h3>Funcionários Cadastrados</h3>
+            <table class="tabela-funcionarios">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Matrícula</th>
+                        <th>Cargo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for f in funcionarios %}
+                    <tr>
+                        <td>{{ f.nome }}</td>
+                        <td>{{ f.matricula }}</td>
+                        <td>{{ f.cargo }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}
